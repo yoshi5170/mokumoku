@@ -34,6 +34,11 @@
             <% end %>
           </div>
           <div>
+            <% if @event.only_woman? %>
+              <p>女性限定</p>
+            <% end %>
+          </div>
+          <div>
             <%= image_tag @event.decorate.thumbnail, class: 'w-100' %>
           </div>
         </div>
@@ -93,12 +98,14 @@
                               data: { confirm: 'キャンセルします' }
                   %>
                 <% else %>
-                  <%= link_to 'このもくもく会に参加する',
-                              event_attendance_url(@event),
-                              class: 'btn btn-primary',
-                              method: :post,
-                              data: { confirm: '申し込みます' }
-                  %>
+                  <% if !@event.only_woman? || ( @event.only_woman? && current_user.woman? ) %>
+                    <%= link_to 'このもくもく会に参加する',
+                                event_attendance_url(@event),
+                                class: 'btn btn-primary',
+                                method: :post,
+                                data: { confirm: '申し込みます' }
+                    %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>

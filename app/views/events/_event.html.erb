@@ -8,6 +8,12 @@
         <%= link_to event.title, event_path(event)  %>
       </h4>
       <p class="card-text"><%= event.content %></p>
+      <div>
+        <% if event.only_woman? %>
+          <hr />
+          <p>女性限定</p>
+        <% end %>
+      </div>
       <hr />
       <div class="d-flex justify-content-between">
         <div>
